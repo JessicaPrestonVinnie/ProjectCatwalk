@@ -1,12 +1,15 @@
+/* eslint-disable import/extensions */
 import React from 'react';
 import $ from 'jquery';
 import styled from 'styled-components';
+import QA from './QA.jsx';
+import Overview from './Overview.jsx';
 
 const Button = styled.button`
   background-color: yellow;
   color: black;
   padding: 1rem 2rem;
-`
+`;
 const App = () => {
   $.ajax({
     method: 'GET',
@@ -16,11 +19,15 @@ const App = () => {
     },
     error: (err) => {
       console.log(err);
-    }
-  })
+    },
+  });
   return (
-    <Button>I am a button</Button>
-  )
-}
+    <div>
+      <Button>I am a button</Button>
+      <Overview />
+      <QA />
+    </div>
+  );
+};
 
 export default App;
