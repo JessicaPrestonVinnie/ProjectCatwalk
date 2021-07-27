@@ -1,7 +1,7 @@
 import React from 'react';
 
 const ProductComparison = (props) => {
-  console.log(props);
+  // console.log(props);
   const features = {};
   props.currentProduct.features.forEach(f => {
     if (!features[f.feature]) {

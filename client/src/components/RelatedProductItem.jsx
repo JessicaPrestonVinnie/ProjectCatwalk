@@ -18,7 +18,7 @@ const Card = styled.div`
   position: relative;
 `
 
-Modal.setAppElement('#root');
+// Modal.setAppElement('#root');
 const RelatedProductItem = (props) => {
   // console.log(props);
   const [modalIsOpen, setModalIsOpen] = useState(false);
