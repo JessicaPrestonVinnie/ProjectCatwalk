@@ -22,6 +22,7 @@ const RelatedProduct = (props) => {
   const [productIndex, setProductIndex] = useState(0);
   const [isLeftButtonShown, setIsLeftButtonShown] = useState(false);
   const [isRightButtonShown, setIsRightButtonShown] = useState(false);
+  const [currentProduct, setCurrentProduct] = useState({});
 
   const CAROUSEL_WIDTH = 3;
   // const [productReviews, setProductReviews] = useState({});
@@ -44,6 +45,21 @@ const RelatedProduct = (props) => {
     });
   }, []);
 
+  useEffect(() => {
+    $.ajax({
+      method: 'GET',
+      url:`http://localhost:3000/products/${props.productId}/`,
+      success: (product) => {
+        // console.log(product);
+        setCurrentProduct(product);
+      },
+      error: (err) => {
+        // console.log(err);
+      }
+    });
+  }, []);
+  // console.log('tt',currentProduct);
+
   const handleClick = (isRight) => {
     if (isRight) {
       setProductIndex(productIndex + 1)
@@ -63,14 +79,15 @@ const RelatedProduct = (props) => {
       }
     }
   }
-
+  // console.log(props);
   return (
     <div>
       <h5>RELATED PRODUCTS</h5>
       <CarouselContainer>
         <button onClick={() => handleClick(false)} style={{visibility: isLeftButtonShown ? 'visible' : 'hidden' }}>left</button>
         <CardContainer>
-          {relatedProducts.slice(productIndex, productIndex + CAROUSEL_WIDTH).map(product => <RelatedProductItem product={product} />)}
+          {relatedProducts.slice(productIndex, productIndex + CAROUSEL_WIDTH).map(product => <RelatedProductItem product={product}
+          currentProduct={currentProduct} />)}
         </CardContainer>
         <button onClick={() => handleClick(true)} style={{visibility: isRightButtonShown ? 'visible' : 'hidden' }}>right</button>
       </CarouselContainer>
