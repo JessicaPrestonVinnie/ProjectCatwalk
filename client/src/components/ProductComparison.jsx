@@ -15,8 +15,7 @@ const ProductComparison = (props) => {
     }
     features[f.feature].compared = f.value;
   })
-  console.log(features);
-  console.log(Object.entries(features).map(([key, value]) => key + value));
+  // console.log(features);
   return (
       // <div>{props.product.default_price}</div>
       <table striped bordered hover>

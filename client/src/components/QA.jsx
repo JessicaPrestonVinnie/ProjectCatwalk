@@ -8,7 +8,7 @@ const QA = (props) => {
     axios.get(`http://localhost:3000/questions?productId=${props.productId}`)
       .then((res) => setQuestions(res.data.results))
       .catch(err => {
-        console.log(err);
+        // console.log(err);
       });
   }, []);
   return (
