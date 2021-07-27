@@ -3,6 +3,7 @@ import $ from 'jquery';
 import styled from 'styled-components';
 import StarRating from './StarRating.jsx';
 import calculateAverage from '../utils/calculateAverage.js';
+import { FaStar } from 'react-icons/fa';
 
 const StyledImage = styled.img`
   width: 200px;
@@ -12,12 +13,14 @@ const Card = styled.div`
   border-style: groove;
   margin-left: 10px;
   margin-right: 10px;
+  position: relative;
 `
 
 const RelatedProductItem = (props) => {
   let rating = calculateAverage(props.product.reviews);
   return (
     <Card>
+      <FaStar size={20} style={{ fill: '#e4e5e9', position: 'absolute', top: 0, right: 0 , stroke: "#ffc107", strokeWidth: 20 }} />
       <StyledImage src={props.product.results[0].photos[0].thumbnail_url || 'https://via.placeholder.com/300x300'} alt={props.product.name} />
       <h5>{props.product.category}</h5>
       <div>{props.product.name}</div>
