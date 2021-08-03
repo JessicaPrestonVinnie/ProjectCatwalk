@@ -37,45 +37,40 @@ const Wrapper = styled.div`
 
 const Outfit = (props) => {
   const [productIndex, setProductIndex] = useState(0);
+  const [carouselWidth, setCarouselWidth] = useState(2);
+  const [showAddToOutfit, setShowAddToOutfit] = useState(true);
   const [isLeftButtonShown, setIsLeftButtonShown] = useState(false);
-  const [isRightButtonShown, setIsRightButtonShown] = useState(true);
-  const [currentProduct, setCurrentProduct] = useState({});
-
-  const CAROUSEL_WIDTH = 2;
+  const [isRightButtonShown, setIsRightButtonShown] = useState(false);
 
   const handleClick = (isRight) => {
     if (isRight) {
-      setProductIndex(productIndex + 1)
-      setIsLeftButtonShown(true);
-      if (productIndex + 1 + CAROUSEL_WIDTH >= props.outfits.length) {
-        setIsRightButtonShown(false);
+      if (productIndex === 0 && showAddToOutfit) {
+        setCarouselWidth(carouselWidth + 1)
+        setShowAddToOutfit(false);
       } else {
-        setIsRightButtonShown(true);
+        setProductIndex(productIndex + 1)
+      }
+      setIsLeftButtonShown(true);
+      if (productIndex + 1 + carouselWidth >= props.outfits.length) {
+        setIsRightButtonShown(false);
       }
     } else {
-      setProductIndex(productIndex - 1)
-      setIsRightButtonShown(true);
-      if (productIndex - 1 <= 0) {
+      if (productIndex === 0 && !showAddToOutfit) {
+        setCarouselWidth(carouselWidth - 1)
+        setShowAddToOutfit(true);
         setIsLeftButtonShown(false);
       } else {
-        setIsLeftButtonShown(true);
+        setProductIndex(productIndex - 1)
       }
+      setIsRightButtonShown(true);
     }
   }
 
   useEffect(() => {
-    $.ajax({
-      method: 'GET',
-      url:`http://localhost:3000/products/${props.productId}/`,
-      success: (product) => {
-        // console.log(product);
-        setCurrentProduct(product);
-      },
-      error: (err) => {
-        // console.log(err);
-      }
-    });
-  }, []);
+    if (productIndex + carouselWidth < props.outfits.length) {
+      setIsRightButtonShown(true);
+    }
+  }, [props.outfits]);
 
   return (
     <div>
@@ -83,8 +78,8 @@ const Outfit = (props) => {
       <CarouselContainer>
         <FaAngleLeft size={30} onClick={() => handleClick(false)} style={{visibility: isLeftButtonShown ? 'visible' : 'hidden' }} />
         <CardContainer>
-          <Card onClick={() => props.handleAddOutfits()}>Add to Outfit</Card>
-          {props.outfits.slice(productIndex, productIndex + CAROUSEL_WIDTH).map(product => <OutfitItem product={product}
+          {showAddToOutfit ? <Card onClick={() => props.handleAddOutfits()}>Add to Outfit</Card> : <div></div>}
+          {props.outfits.slice(productIndex, productIndex + carouselWidth).map(product => <OutfitItem product={product}
            handleDeleteOutfit={props.handleDeleteOutfit} />)}
         </CardContainer>
         <FaAngleRight size={30} onClick={() => handleClick(true)} style={{visibility: isRightButtonShown ? 'visible' : 'hidden' }} />

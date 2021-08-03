@@ -76,16 +76,12 @@ const RelatedProduct = (props) => {
       setIsLeftButtonShown(true);
       if (productIndex + 1 + CAROUSEL_WIDTH >= relatedProducts.length) {
         setIsRightButtonShown(false);
-      } else {
-        setIsRightButtonShown(true);
       }
     } else {
       setProductIndex(productIndex - 1)
       setIsRightButtonShown(true);
       if (productIndex - 1 <= 0) {
         setIsLeftButtonShown(false);
-      } else {
-        setIsLeftButtonShown(true);
       }
     }
   }
