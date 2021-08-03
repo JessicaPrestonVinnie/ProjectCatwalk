@@ -73,7 +73,7 @@ const Outfit = (props) => {
   }, [props.outfits]);
 
   return (
-    <div>
+    <div onClick={(e, moduleElem) => props.handleClick(e, 'Outfit')}>
       <Wrapper>YOUR OUTFIT</Wrapper>
       <CarouselContainer>
         <FaAngleLeft size={30} onClick={() => handleClick(false)} style={{visibility: isLeftButtonShown ? 'visible' : 'hidden' }} />

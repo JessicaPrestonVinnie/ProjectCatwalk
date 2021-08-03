@@ -130,7 +130,7 @@ const QA = (props) => {
   }
 
   return (
-    <div>
+    <div onClick={(e, moduleElem) => props.handleClick(e, 'QA')}>
       <SearchBar value={searchValue} onChange={setSearchValue} />
       <QWrapper>
         <QuestionList fetchQuestions={fetchQuestions} productName={productName} questions={currentQuestions} productId={props.productId} questionsExpanded={questionsExpanded} />
